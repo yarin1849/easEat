@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "931969728534",
+    "project_id": "easeat-a1038",
+    "storage_bucket": "easeat-a1038.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:931969728534:android:d64dab39e7c8a5852a3537",
+        "android_client_info": {
+          "package_name": "com.example.easeat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZoKr7TO7lVfF5BYvQCuQFMjUJ3a0k2l4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
