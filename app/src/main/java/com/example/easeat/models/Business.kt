@@ -16,4 +16,6 @@ class Business(
     var category: String,
     var image: String,
     override var lastUpdated: Long
-) : BaseModel()
+) : BaseModel() {
+    constructor() :this("","",Location(), 0.0,0.0f,"","",0)
+}

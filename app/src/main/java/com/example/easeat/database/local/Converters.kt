@@ -10,12 +10,12 @@ import kotlinx.serialization.encodeToString
 class Converters {
 
     @TypeConverter
-    fun fromOrderItemListToString(list: List<OrderItem>) : String {
+    fun fromOrderItemListToString(list: MutableList<OrderItem>) : String {
         return json.encodeToString(list)
     }
 
     @TypeConverter
-    fun fromStringToOrderItemList(str: String) : List<OrderItem> {
+    fun fromStringToOrderItemList(str: String) : MutableList<OrderItem> {
         return json.decodeFromString(str)
     }
 

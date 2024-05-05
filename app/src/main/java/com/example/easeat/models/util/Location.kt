@@ -4,4 +4,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Location(var latitude: Double,
-                    var longtitude: Double)
+                    var longtitude: Double) {
+    constructor() : this(0.0,0.0)
+}

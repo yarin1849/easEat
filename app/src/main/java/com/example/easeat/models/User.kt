@@ -15,4 +15,6 @@ class User(
     var birthday: Long,
     var image: String,
     override var lastUpdated: Long
-): BaseModel()
+): BaseModel() {
+    constructor() : this("","","","",0,"",0)
+}

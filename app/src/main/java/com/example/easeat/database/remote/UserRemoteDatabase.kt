@@ -50,6 +50,10 @@ class UserRemoteDatabase(
         continuation.await()
     }
 
+    override fun signOut() {
+        FirebaseAuth.getInstance().signOut()
+    }
+
     @Throws
    override suspend fun register(coroutineScope: CoroutineScope, registerDto: RegisterDto): User = withContext(Dispatchers.IO) {
 

@@ -18,6 +18,7 @@ import dagger.Component.Factory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ViewModelScoped
 import dagger.hilt.components.SingletonComponent
@@ -25,59 +26,59 @@ import kotlinx.coroutines.CoroutineScope
 import javax.inject.Singleton
 
 @Module
-@InstallIn(SingletonComponent::class)
+@InstallIn(ViewModelComponent::class)
 class DbModule {
     @Provides
-    @Singleton
+    @ViewModelScoped
     fun provideUserDao(appDatabase: AppDatabase) : UserDao {
         return appDatabase.userDao()
     }
 
     @Provides
-    @Singleton
+    @ViewModelScoped
     fun provideProductDao(appDatabase: AppDatabase) : ProductDao {
         return appDatabase.productDao()
     }
 
     @Provides
-    @Singleton
+    @ViewModelScoped
     fun provideBusinessDao(appDatabase: AppDatabase) : BusinessDao {
         return appDatabase.businessDao()
     }
 
     @Provides
-    @Singleton
+    @ViewModelScoped
     fun provideOrderDao(appDatabase: AppDatabase) : OrderDao {
         return appDatabase.orderDao()
     }
 
 
     @Provides
-    @Singleton
+    @ViewModelScoped
     fun provideImageStorage() : ImageStorage {
         return ImageStorage()
     }
 
     @Provides
-    @Singleton
+    @ViewModelScoped
     fun provideUserRemoteDb(storage: ImageStorage) : UserRemoteDatabase {
         return UserRemoteDatabase(storage)
     }
 
     @Provides
-    @Singleton
+    @ViewModelScoped
     fun provideBusinessRemoteDb() : BusinessRemoteDatabase {
         return BusinessRemoteDatabase()
     }
 
     @Provides
-    @Singleton
+    @ViewModelScoped
     fun provideOrderRemoteDb() : OrderRemoteDatabase {
         return OrderRemoteDatabase()
     }
 
     @Provides
-    @Singleton
+    @ViewModelScoped
     fun provideProductRemoteDb() : ProductRemoteDatabase {
         return ProductRemoteDatabase()
     }

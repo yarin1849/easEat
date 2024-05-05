@@ -6,4 +6,6 @@
     <string name="already_have_an_account_login_now">Already have an account? Login now</string>
     <string name="register">Register</string>
     <string name="enter_address">Enter address</string>
+    <string name="enter_full_name">Enter full name</string>
+    <string name="enter_birthday_dd_mm_yyyy">Enter birthday dd-mm-yyyy</string>
 </resources>

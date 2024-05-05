@@ -9,4 +9,6 @@ interface IUserAuth {
     suspend fun register(coroutineScope: CoroutineScope, registerDto: RegisterDto) : User
     suspend fun login(email: String, password: String) : AuthResult
 
+    fun signOut()
+
 }

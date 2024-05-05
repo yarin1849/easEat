@@ -15,5 +15,8 @@ class Order(
     var userId: String,
     var orderDate: Long,
     var orderAddress: String,
-    var items: List<OrderItem>
-): BaseModel()
+    var items: MutableList<OrderItem>
+): BaseModel() {
+    constructor() : this("", 0,"","",0,"", mutableListOf())
+
+}

@@ -14,4 +14,6 @@ class Product(
     var rating: Double,
     var businessId: String,
     var image: String
-): BaseModel()
+): BaseModel() {
+    constructor() : this("",0,0.0,0,0.0,"","")
+}

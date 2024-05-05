@@ -7,29 +7,31 @@ import com.example.easeat.database.local.AppDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.android.scopes.ViewModelScoped
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Singleton
 
 @Module
-@InstallIn(SingletonComponent::class)
+@InstallIn(ViewModelComponent::class)
 class AppModule {
     @Provides
-    @Singleton
+    @ViewModelScoped
     fun provideSharedPreferences(@ApplicationContext context: Context) : SharedPreferences {
         return context.getSharedPreferences("com.example.easeat", MODE_PRIVATE)
     }
 
     @Provides
-    @Singleton
+    @ViewModelScoped
     fun provideAppDatabase(@ApplicationContext context: Context) : AppDatabase {
         return AppDatabase.getInstance(context)
     }
 
     @Provides
-    @Singleton
+    @ViewModelScoped
     fun provideCoroutineScope() : CoroutineScope {
         return CoroutineScope(Dispatchers.IO)
     }
