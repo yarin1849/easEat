@@ -17,23 +17,35 @@
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/mainFragmentContainer"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigationViewMain"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:defaultNavHost="true"
         android:layout_width="match_parent"
         app:navGraph="@navigation/main_nav_graph"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_height="0dp"/>
 
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        app:menu="@menu/tabbar"
+        android:id="@+id/bottomNavigationViewMain"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="wrap_content"/>
+
     <ProgressBar
         android:id="@+id/pbMain"
+        android:translationZ="100dp"
+        android:progressTint="#B5710D"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="32dp"/>
+        android:layout_marginBottom="122dp"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

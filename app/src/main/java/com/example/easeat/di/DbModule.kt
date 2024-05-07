@@ -3,6 +3,7 @@ package com.example.easeat.di
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
+import com.example.easeat.database.common.BusinessRepository
 import com.example.easeat.database.common.UserRepository
 import com.example.easeat.database.local.AppDatabase
 import com.example.easeat.database.local.BusinessDao
@@ -67,9 +68,10 @@ class DbModule {
 
     @Provides
     @ViewModelScoped
-    fun provideBusinessRemoteDb() : BusinessRemoteDatabase {
-        return BusinessRemoteDatabase()
+    fun provideBusinessRemoteDb(sp: SharedPreferences) : BusinessRemoteDatabase {
+        return BusinessRemoteDatabase(sp)
     }
+
 
     @Provides
     @ViewModelScoped
@@ -95,5 +97,13 @@ class DbModule {
         return UserRepository(userRemoteDatabase, userDao, orderDao, coroutineScope)
     }
 
+    @Provides
+    @ViewModelScoped
+    fun provideBusinessRepository(
+        businessRemoteDatabase: BusinessRemoteDatabase,
+        businessDao: BusinessDao
+    ): BusinessRepository {
+        return BusinessRepository(businessRemoteDatabase, businessDao)
+    }
 
 }

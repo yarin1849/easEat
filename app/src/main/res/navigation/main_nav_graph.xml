@@ -9,5 +9,23 @@
         android:id="@+id/homeFragment"
         tools:layout="@layout/fragment_home"
         android:name="com.example.easeat.ui.auth.HomeFragment"
-        android:label="HomeFragment" />
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_businessFragment"
+            app:destination="@id/businessFragment" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/fragment_business"
+        android:id="@+id/businessFragment"
+        android:name="com.example.easeat.ui.auth.BusinessFragment"
+        android:label="BusinessFragment" >
+        <argument android:name="business"/>
+    </fragment>
+    <fragment
+        tools:layout="@layout/fragment_business_search"
+        android:id="@+id/businessSearchFragment"
+        android:name="com.example.easeat.ui.auth.BusinessSearchFragment"
+        android:label="BusinessSearchFragment" />
+
+
 </navigation>

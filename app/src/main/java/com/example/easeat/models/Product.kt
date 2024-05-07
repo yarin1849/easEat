@@ -13,7 +13,8 @@ class Product(
     var stock: Int,
     var rating: Double,
     var businessId: String,
-    var image: String
+    var image: String,
+    var name: String
 ): BaseModel() {
-    constructor() : this("",0,0.0,0,0.0,"","")
+    constructor() : this("",0,0.0,0,0.0,"","", "")
 }

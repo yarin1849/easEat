@@ -10,7 +10,7 @@ import com.example.easeat.models.Order
 import com.example.easeat.models.Product
 import com.example.easeat.models.User
 
-@Database(entities = [User::class, Product::class, Business::class, Order::class], version = 1)
+@Database(entities = [User::class, Product::class, Business::class, Order::class], version = 2)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun businessDao() : BusinessDao

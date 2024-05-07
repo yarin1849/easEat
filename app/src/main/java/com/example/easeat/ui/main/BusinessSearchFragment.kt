@@ -10,9 +10,12 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.easeat.adapters.BusinessAdapter
 import com.example.easeat.adapters.BusinessListEvents
+import com.example.easeat.databinding.FragmentBusinessBinding
+import com.example.easeat.databinding.FragmentBusinessSearchBinding
 import com.example.easeat.databinding.FragmentHomeBinding
 import com.example.easeat.databinding.FragmentLoginBinding
 import com.example.easeat.json
@@ -23,14 +26,13 @@ import com.example.easeat.viewmodels.BusinessViewModel
 import com.example.easeat.viewmodels.MainViewModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.serialization.encodeToString
 import java.util.Calendar
 
 @AndroidEntryPoint
-class HomeFragment: Fragment(), BusinessListEvents {
+class BusinessSearchFragment: Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
-    private val binding: FragmentHomeBinding get() = _binding!!
+    private var _binding: FragmentBusinessSearchBinding? = null
+    private val binding: FragmentBusinessSearchBinding get() = _binding!!
     private val authViewModel by activityViewModels<MainViewModel>()
     private val businessViewModel by activityViewModels<BusinessViewModel>()
 
@@ -39,17 +41,12 @@ class HomeFragment: Fragment(), BusinessListEvents {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentHomeBinding.inflate(inflater, container,false)
+        _binding = FragmentBusinessSearchBinding.inflate(inflater, container,false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.rvRestaurants.layoutManager = LinearLayoutManager(requireContext())
-        businessViewModel.businesses.observe(viewLifecycleOwner) { businesses ->
-            val adapter = BusinessAdapter(businesses, this)
-            binding.rvRestaurants.adapter = adapter
-        }
     }
 
 
@@ -58,9 +55,4 @@ class HomeFragment: Fragment(), BusinessListEvents {
         _binding = null
     }
 
-    override fun onShowDetails(business: Business) {
-        val businessJson = json.encodeToString(business)
-        val action = HomeFragmentDirections.actionHomeFragmentToBusinessFragment(businessJson)
-        findNavController().navigate(action)
-    }
 }
