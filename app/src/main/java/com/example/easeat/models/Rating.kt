@@ -6,8 +6,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 @Entity(tableName = "ratings")
-data class Rating(@PrimaryKey val id:String = "",
+data class Rating(@PrimaryKey var id:String = "",
                   val businessId: String = "",
                   var image: String = "",
-             val personName: String = "",
-             val content: String = "")
+                  val personName: String = "",
+                  val content: String = "")

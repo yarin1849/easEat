@@ -58,6 +58,8 @@ class HomeFragment: Fragment(), BusinessListEvents {
         _binding = null
     }
 
+
+
     override fun onShowDetails(business: Business) {
         val businessJson = json.encodeToString(business)
         val action = HomeFragmentDirections.actionHomeFragmentToBusinessFragment(businessJson)

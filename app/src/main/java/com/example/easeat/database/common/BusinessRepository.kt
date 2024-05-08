@@ -10,6 +10,7 @@ import com.example.easeat.models.Rating
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class BusinessRepository(
     private val remoteDb: BusinessRemoteDatabase,
@@ -24,6 +25,12 @@ class BusinessRepository(
             }
         }
         return FirebaseListener(listener, localDb.getBusinesses())
+    }
+
+    override suspend fun deleteRating(businessId: String, ratingId: String) = withContext(Dispatchers.IO) {
+        val res = remoteDb.deleteRating(businessId, ratingId)
+        ratingsDao.delete(ratingId)
+        res
     }
 
 

@@ -8,7 +8,7 @@ import com.example.easeat.databinding.RatingItemBinding
 import com.example.easeat.models.Rating
 import com.squareup.picasso.Picasso
 
-class RatingsAdapter(val ratings: List<Rating>) : RecyclerView.Adapter<RatingsAdapter.RatingsViewHolder>() {
+open class RatingsAdapter(val ratings: List<Rating>) : RecyclerView.Adapter<RatingsAdapter.RatingsViewHolder>() {
 
     inner class RatingsViewHolder(val binding: RatingItemBinding) : ViewHolder(binding.root) {
         fun bind(rating: Rating) {

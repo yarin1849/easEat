@@ -99,14 +99,41 @@ class BusinessViewModel @Inject constructor(
         }
     }
 
-
-    fun addRating(businessId: String, rating: Rating, image:Uri, onSuccess: () -> Unit, onFailure: () -> Unit) {
+    fun deleteRating(businessId:String, ratingId:String) {
         viewModelScope.launch {
             _loading.postValue(LoadingState.Loading)
             try {
-                businessRepository.addRating(businessId, rating,image)
+                businessRepository.deleteRating(businessId, ratingId)
+            }
+            catch (e: Exception) {
+                _exceptions.postValue(e)
+            }
+            finally {
+                _loading.postValue(LoadingState.Loaded)
+            }
+        }
+    }
+    fun addRating(businessId: String, rating: Rating, image:Uri?, editExisting: Boolean, onSuccess: () -> Unit, onFailure: () -> Unit) {
+        viewModelScope.launch {
+            _loading.postValue(LoadingState.Loading)
+            try {
+                if(editExisting) {
+                    businessRepository.editRating(
+                        businessId=businessId,
+                        rating=rating,
+                        image=image
+                    )
+                }
+                else {
+                    businessRepository.addRating(
+                        businessId=businessId,
+                        rating=rating,
+                        image=image!!
+                    )
+                }
                 onSuccess.invoke()
             } catch (e: Exception) {
+                e.printStackTrace()
                 _exceptions.postValue(e)
                 onFailure.invoke()
             } finally {

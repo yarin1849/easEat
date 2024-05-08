@@ -101,9 +101,10 @@ class DbModule {
         userRemoteDatabase: UserRemoteDatabase,
         userDao: UserDao,
         orderDao: OrderDao,
+        ratingsDao: RatingsDao,
         coroutineScope: CoroutineScope,
     ) : UserRepository {
-        return UserRepository(userRemoteDatabase, userDao, orderDao, coroutineScope)
+        return UserRepository(userRemoteDatabase, userDao, orderDao,ratingsDao, coroutineScope)
     }
 
     @Provides

@@ -10,7 +10,7 @@
     <string name="enter_birthday_dd_mm_yyyy">Enter birthday dd-mm-yyyy</string>
     <string name="restaurants">Restaurants</string>
     <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</string>
-    <string name="googleApiKey"></string>
+    <string name="googleApiKey">AIzaSyAEasI0H2_05n3GYEPq-ftHv9O65r7Yheg</string>
     <string name="this_restaurant_provides_service_in_your_area">This restaurant provides service in your area</string>
     <string name="this_restaurant_provides_service_in_your_area_no">This restaurant does not provides service in your area</string>
 </resources>

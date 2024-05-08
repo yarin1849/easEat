@@ -22,6 +22,8 @@ class MainViewModel @Inject constructor(private val userRepository: UserReposito
 
     val currentUser = userRepository.getCurrentUser()
     val currentUserOrders = userRepository.getCurrentUserOrders()
+    val currentUserRatings = userRepository.getCurrentUserRatings()
+
 
     private val _loading = MutableLiveData<LoadingState>(LoadingState.Loaded)
     val loading: LiveData<LoadingState> get() =  _loading

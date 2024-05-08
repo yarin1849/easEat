@@ -64,7 +64,7 @@ class BusinessFragment: Fragment(), ProductListEvents {
         binding.btnSendOrder.setOnClickListener {
             authViewModel.sendOrder(
                 onAddOrder =  {
-                    val action = BusinessFragmentDirections.actionBusinessFragmentToAddReviewFragment(args.business)
+                    val action = BusinessFragmentDirections.actionBusinessFragmentToAddReviewFragment(args.business,null)
                     findNavController().navigate(action)
                 },
                 onCannotSendOrder = { reason->

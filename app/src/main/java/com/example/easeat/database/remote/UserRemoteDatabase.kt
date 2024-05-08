@@ -4,6 +4,7 @@ import android.net.Uri
 import com.example.easeat.DEFAULT_IMAGE
 import com.example.easeat.database.IUserAuth
 import com.example.easeat.models.Order
+import com.example.easeat.models.Rating
 import com.example.easeat.models.User
 import com.example.easeat.models.dto.RegisterDto
 import com.google.firebase.auth.AuthResult
@@ -49,6 +50,18 @@ class UserRemoteDatabase(
             .collection(ORDERS_COLLECTION_NAME)
             .addSnapshotListener { value, _ ->
                 value?.toObjects(Order::class.java)?.let {
+                    callback(it)
+                }
+            }
+    }
+
+    fun listenCurrentUserRatings(callback: (List<Rating>) -> Unit): ListenerRegistration {
+        val uid = auth.uid!!
+        return fireStore.collection(COLLECTION_NAME)
+            .document(uid)
+            .collection("ratings")
+            .addSnapshotListener { value, _ ->
+                value?.toObjects(Rating::class.java)?.let {
                     callback(it)
                 }
             }

@@ -2,6 +2,7 @@ package com.example.easeat.database.remote
 
 import android.content.SharedPreferences
 import android.net.Uri
+import android.util.Log
 import com.example.easeat.DEFAULT_IMAGE
 import com.example.easeat.LAST_UPDATE_KEY
 import com.example.easeat.models.Business
@@ -62,9 +63,79 @@ class BusinessRemoteDatabase(
             .document(businessId)
             .collection("ratings")
             .document()
+
+        val newDocAtUser = fireStore
+            .collection(UserRemoteDatabase.COLLECTION_NAME)
+            .document(FirebaseAuth.getInstance().uid!!)
+            .collection("ratings")
+            .document(newDoc.id)
+
+        rating.id = newDoc.id
         rating.image  =  imageStorage.uploadImage("ratingImages/${newDoc.id}",image)
 
+        newDocAtUser.set(rating)
         newDoc.set(rating)
+            .addOnSuccessListener {
+                continuation.complete(rating)
+            }.addOnFailureListener(continuation::completeExceptionally)
+        continuation.await()
+    }
+
+
+    override suspend fun deleteRating(businessId: String, ratingId: String) = withContext(Dispatchers.IO) {
+
+        val continuation = CompletableDeferred<Void?>()
+
+        val existingDocDeleteTask = fireStore
+            .collection(BusinessRemoteDatabase.COLLECTION_NAME)
+            .document(businessId)
+            .collection("ratings")
+            .document(ratingId)
+            .delete()
+
+
+        val existingDocAtUserDeleteTask = fireStore
+            .collection(UserRemoteDatabase.COLLECTION_NAME)
+            .document(FirebaseAuth.getInstance().uid!!)
+            .collection("ratings")
+            .document(ratingId)
+            .delete()
+        existingDocDeleteTask.addOnSuccessListener {
+            continuation.complete(null)
+        }
+            .addOnFailureListener(continuation::completeExceptionally)
+
+        continuation.await()
+
+    }
+
+
+    override suspend fun editRating(businessId: String, rating: Rating, image: Uri?) = withContext(Dispatchers.IO) {
+
+        val continuation = CompletableDeferred<Rating>()
+
+        val existingDoc = fireStore
+            .collection(BusinessRemoteDatabase.COLLECTION_NAME)
+            .document(businessId)
+            .collection("ratings")
+            .document(rating.id)
+
+        val existingDocAtUser = fireStore
+            .collection(UserRemoteDatabase.COLLECTION_NAME)
+            .document(FirebaseAuth.getInstance().uid!!)
+            .collection("ratings")
+            .document(rating.id)
+
+        rating.image  = if(image != null) {
+            imageStorage.uploadImage("ratingImages/${existingDoc.id}",image)
+        }
+        else {
+            rating.image
+        }
+
+
+        existingDocAtUser.set(rating)
+        existingDoc.set(rating)
             .addOnSuccessListener {
                 continuation.complete(rating)
             }.addOnFailureListener(continuation::completeExceptionally)

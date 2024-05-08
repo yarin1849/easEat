@@ -28,7 +28,9 @@ import com.example.easeat.models.util.LoadingState
 import com.example.easeat.viewmodels.BusinessViewModel
 import com.example.easeat.viewmodels.MainViewModel
 import com.google.android.material.snackbar.Snackbar
+import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.serialization.decodeFromString
 import java.util.Calendar
 import java.util.regex.Pattern
 
@@ -67,6 +69,8 @@ class AddReviewFragment: Fragment() {
         return binding.root
     }
 
+    private var existingRating: Rating? = null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -76,10 +80,18 @@ class AddReviewFragment: Fragment() {
         binding.back.setOnClickListener {
             findNavController().popBackStack()
         }
+
+
         val business = json.decodeFromString<Business>(args.business)
         binding.btnPost.setOnClickListener {
-            onRegisterSubmit(business.id)
+            onReviewSubmit(business.id, args.existingRating != null)
         }
+
+        // Existing rating handling
+        val existingRatingJson = args.existingRating ?: return
+        existingRating = json.decodeFromString<Rating>(existingRatingJson) ?: return
+        Picasso.get().load(existingRating!!.image).into(binding.ivReview)
+        binding.etReview.setText(existingRating!!.content)
     }
 
 
@@ -95,7 +107,7 @@ class AddReviewFragment: Fragment() {
         }
     }
 
-    private fun onRegisterSubmit(bid:String) {
+    private fun onReviewSubmit(bid:String, editExisting: Boolean) {
         val reviewContent = binding.etReview.text.toString()
 
         binding.etReviewLayout.error = null
@@ -105,7 +117,7 @@ class AddReviewFragment: Fragment() {
             binding.etReviewLayout.error = "Review must not be empty"
             return
         }
-        if(selectedImageUri == null) {
+        if(selectedImageUri == null && !editExisting) {
             Toast.makeText(requireContext(),"Must pick image", Toast.LENGTH_LONG).show()
             return
         }
@@ -116,14 +128,18 @@ class AddReviewFragment: Fragment() {
 
         val user = viewModel.currentUser.value ?: return
         businessViewModel.addRating(
+            editExisting = editExisting,
             businessId = bid,
-            rating = Rating(
+            rating = if(editExisting) {
+                existingRating!!.copy(content = reviewContent)
+            }
+            else {  Rating(
                 id = "",
                 businessId = bid,
                 personName = user.name,
                 content = reviewContent
-            ),
-            image = selectedImageUri!!,
+            )},
+            image = selectedImageUri,
             onSuccess = {
                 binding.btnPost.isEnabled = true
                 findNavController().popBackStack()

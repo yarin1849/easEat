@@ -46,4 +46,9 @@ class RatingsFragment : Fragment(){
             binding.rvRatings.adapter = RatingsAdapter(it)
         }
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

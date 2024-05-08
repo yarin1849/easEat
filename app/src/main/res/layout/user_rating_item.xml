@@ -2,8 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:padding="16dp"
+    android:orientation="vertical"
     android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:padding="16dp"
 
+        android:layout_height="wrap_content">
     <ImageView
         android:id="@+id/ivPostImage"
         android:src="@drawable/food"
@@ -29,4 +35,26 @@
           android:layout_height="wrap_content"
           android:text="review content"/>
   </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/btnDelete"
+            android:drawableEnd="@drawable/baseline_delete_24"
+            android:layout_width="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:backgroundTint="#bd3333"
+            android:layout_height="wrap_content"
+            android:text="Delete review"/>
+        <Button
+            android:id="@+id/btnEdit"
+            android:drawableEnd="@drawable/baseline_mode_edit_24"
+            android:layout_width="wrap_content"
+            android:backgroundTint="#0000AA"
+            android:layout_height="wrap_content"
+            android:text="Edit review"/>
+
+    </LinearLayout>
 </LinearLayout>
