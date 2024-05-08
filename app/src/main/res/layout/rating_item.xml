@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:padding="16dp"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/ivPostImage"
+        android:src="@drawable/food"
+        android:layout_width="100dp"
+        android:layout_height="100dp"/>
+  <LinearLayout
+      android:orientation="vertical"
+      android:layout_width="match_parent"
+      android:padding="16dp"
+      android:layout_height="wrap_content">
+      <TextView
+          android:textStyle="bold"
+          android:id="@+id/tvReviewerName"
+          android:textSize="20sp"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="reviewer name"/>
+
+      <TextView
+          android:padding="8dp"
+          android:id="@+id/tvReview"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="review content"/>
+  </LinearLayout>
+</LinearLayout>

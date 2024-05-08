@@ -20,12 +20,37 @@
         android:name="com.example.easeat.ui.auth.BusinessFragment"
         android:label="BusinessFragment" >
         <argument android:name="business"/>
+        <action
+            android:id="@+id/action_businessFragment_to_ratingsFragment"
+            app:destination="@id/ratingsFragment" />
+        <action
+            android:id="@+id/action_businessFragment_to_addReviewFragment"
+            app:destination="@id/addReviewFragment" />
     </fragment>
     <fragment
         tools:layout="@layout/fragment_business_search"
         android:id="@+id/businessSearchFragment"
         android:name="com.example.easeat.ui.auth.BusinessSearchFragment"
-        android:label="BusinessSearchFragment" />
+        android:label="BusinessSearchFragment" >
+        <action
+            android:id="@+id/action_businessSearchFragment_to_businessFragment"
+            app:destination="@id/businessFragment" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/fragment_reviews"
+        android:id="@+id/ratingsFragment"
+        android:name="com.example.easeat.ui.main.RatingsFragment"
+        android:label="RatingsFragment" >
+        <argument android:name="business"/>
+    </fragment>
+    <fragment
+        tools:layout="@layout/fragment_rate"
+        android:id="@+id/addReviewFragment"
+        android:name="com.example.easeat.ui.main.AddReviewFragment"
+        android:label="AddReviewFragment" >
+        <argument android:name="business"/>
+
+    </fragment>
 
 
 </navigation>

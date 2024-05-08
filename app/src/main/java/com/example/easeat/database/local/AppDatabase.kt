@@ -8,15 +8,17 @@ import androidx.room.TypeConverters
 import com.example.easeat.models.Business
 import com.example.easeat.models.Order
 import com.example.easeat.models.Product
+import com.example.easeat.models.Rating
 import com.example.easeat.models.User
 
-@Database(entities = [User::class, Product::class, Business::class, Order::class], version = 2)
+@Database(entities = [User::class, Product::class, Business::class, Order::class, Rating::class], version = 4)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun businessDao() : BusinessDao
     abstract fun productDao() : ProductDao
     abstract fun userDao() : UserDao
     abstract fun orderDao() : OrderDao
+    abstract fun ratingsDao() : RatingsDao
 
     companion object {
         @Volatile

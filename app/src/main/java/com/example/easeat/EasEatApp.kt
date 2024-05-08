@@ -1,6 +1,7 @@
 package com.example.easeat
 
 import android.app.Application
+import com.google.android.libraries.places.api.Places
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.serialization.json.Json
 
@@ -12,4 +13,10 @@ val json = Json {
 }
 
 @HiltAndroidApp
-class EasEatApp: Application()
+class EasEatApp: Application() {
+
+    override fun onCreate() {
+        super.onCreate()
+        Places.initialize(this, getString(R.string.googleApiKey))
+    }
+}

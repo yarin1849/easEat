@@ -16,6 +16,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.easeat.databinding.ActivityMainBinding
 import com.example.easeat.models.util.LoadingState
 import com.example.easeat.ui.AppDialogs
+import com.example.easeat.viewmodels.BusinessViewModel
 import com.example.easeat.viewmodels.MainViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
@@ -25,6 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private val viewModel by viewModels<MainViewModel>()
+    private val businessViewModel by viewModels<BusinessViewModel>()
 
     private lateinit var binding: ActivityMainBinding
 
@@ -66,6 +68,12 @@ class MainActivity : AppCompatActivity() {
             binding.toolbar.tvUserName.text = "Logged in as ${user.name}"
         }
         viewModel.loading.observe(this) {
+            binding.pbMain.visibility = when(it) {
+                is LoadingState.Loading -> View.VISIBLE
+                is LoadingState.Loaded -> View.GONE
+            }
+        }
+        businessViewModel.loading.observe(this) {
             binding.pbMain.visibility = when(it) {
                 is LoadingState.Loading -> View.VISIBLE
                 is LoadingState.Loaded -> View.GONE

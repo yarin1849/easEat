@@ -18,5 +18,11 @@ class Order(
     var items: MutableList<OrderItem>
 ): BaseModel() {
     constructor() : this("", 0,"","",0,"", mutableListOf())
+}
 
+fun Order.totalPrice(): Double {
+    return   items.sumOf {it.quantity * it.price }
+}
+fun Order.size() : Int {
+    return items.size
 }

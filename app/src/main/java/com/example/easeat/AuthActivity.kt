@@ -36,7 +36,6 @@ class AuthActivity : AppCompatActivity() {
             moveToHome()
         }
 
-
         viewModel.loading.observe(this) {
             binding.pbAuth.visibility = when(it) {
                 is LoadingState.Loading -> View.VISIBLE

@@ -4,17 +4,20 @@ import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import com.example.easeat.database.common.BusinessRepository
+import com.example.easeat.database.common.ProductRepository
 import com.example.easeat.database.common.UserRepository
 import com.example.easeat.database.local.AppDatabase
 import com.example.easeat.database.local.BusinessDao
 import com.example.easeat.database.local.OrderDao
 import com.example.easeat.database.local.ProductDao
+import com.example.easeat.database.local.RatingsDao
 import com.example.easeat.database.local.UserDao
 import com.example.easeat.database.remote.BusinessRemoteDatabase
 import com.example.easeat.database.remote.ImageStorage
 import com.example.easeat.database.remote.OrderRemoteDatabase
 import com.example.easeat.database.remote.ProductRemoteDatabase
 import com.example.easeat.database.remote.UserRemoteDatabase
+import com.example.easeat.models.Rating
 import dagger.Component.Factory
 import dagger.Module
 import dagger.Provides
@@ -39,6 +42,12 @@ class DbModule {
     @ViewModelScoped
     fun provideProductDao(appDatabase: AppDatabase) : ProductDao {
         return appDatabase.productDao()
+    }
+
+    @Provides
+    @ViewModelScoped
+    fun provideRatingsDao(appDatabase: AppDatabase) : RatingsDao {
+        return appDatabase.ratingsDao()
     }
 
     @Provides
@@ -68,8 +77,8 @@ class DbModule {
 
     @Provides
     @ViewModelScoped
-    fun provideBusinessRemoteDb(sp: SharedPreferences) : BusinessRemoteDatabase {
-        return BusinessRemoteDatabase(sp)
+    fun provideBusinessRemoteDb(sp: SharedPreferences, imageStorage: ImageStorage) : BusinessRemoteDatabase {
+        return BusinessRemoteDatabase(sp, imageStorage)
     }
 
 
@@ -81,8 +90,8 @@ class DbModule {
 
     @Provides
     @ViewModelScoped
-    fun provideProductRemoteDb() : ProductRemoteDatabase {
-        return ProductRemoteDatabase()
+    fun provideProductRemoteDb(sp: SharedPreferences) : ProductRemoteDatabase {
+        return ProductRemoteDatabase(sp)
     }
 
     // repositories
@@ -101,9 +110,19 @@ class DbModule {
     @ViewModelScoped
     fun provideBusinessRepository(
         businessRemoteDatabase: BusinessRemoteDatabase,
-        businessDao: BusinessDao
+        businessDao: BusinessDao,
+        ratingsDao: RatingsDao
     ): BusinessRepository {
-        return BusinessRepository(businessRemoteDatabase, businessDao)
+        return BusinessRepository(businessRemoteDatabase, businessDao,ratingsDao)
+    }
+
+    @Provides
+    @ViewModelScoped
+    fun provideProductRepository(
+        productRemoteDatabase: ProductRemoteDatabase,
+        productDao: ProductDao
+    ): ProductRepository {
+        return ProductRepository(productRemoteDatabase, productDao)
     }
 
 }

@@ -3,6 +3,7 @@ package com.example.easeat.di
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
+import android.location.Geocoder
 import com.example.easeat.database.local.AppDatabase
 import dagger.Module
 import dagger.Provides
@@ -28,6 +29,13 @@ class AppModule {
     @ViewModelScoped
     fun provideAppDatabase(@ApplicationContext context: Context) : AppDatabase {
         return AppDatabase.getInstance(context)
+    }
+
+
+    @Provides
+    @ViewModelScoped
+    fun provideGeoCoder(@ApplicationContext context: Context) : Geocoder {
+        return Geocoder(context)
     }
 
     @Provides
